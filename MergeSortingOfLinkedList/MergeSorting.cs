@@ -7,32 +7,35 @@ using System.Threading.Tasks;
 
 namespace MergeSortingOfLinkedList
 {
-    class MergeSorting<T>
+    class MergeSorting<T> where T: IComparable<T>
     {
         private Element<T> _firstElement;
         private Element<T> _lastElement;
 
         public LinkedList<T> Sort(LinkedList<T> list)
         {
-            if (list.Length() == 1)
+            int lengthOfList = list.Length();
+            if (lengthOfList == 1)
             {
                 return list;
             }
-            int middle = list.Length() / 2;
-            return Merge(Sort(list.Take(middle)), Sort(list.Skip(list.Length())));
+            int middle = lengthOfList / 2;
+            return Merge(Sort(list.Take(middle)), Sort(list.Skip(lengthOfList)));
         }
 
-        private LinkedList<T> Merge(LinkedList<T> leftPart, LinkedList<T> rightPart)
+        public LinkedList<T> Merge(LinkedList<T> leftPart, LinkedList<T> rightPart)
         {
             LinkedList<T> merged = new LinkedList<T>();
             Element<T> currentElementOfLeftPart = leftPart._firstElement;
             Element<T> currentElementOfRightPart = rightPart._firstElement;
+            int lengthOfLeftPart = leftPart.Length();
+            int lengthOfRightPart = rightPart.Length();
 
-            for (int i = 0; i < leftPart.Length() + rightPart.Length(); i++)
+            for (int i = 0; i < lengthOfLeftPart + lengthOfRightPart; i++)
             {
                 if (currentElementOfLeftPart != null && currentElementOfRightPart != null)
                 {
-                    if (Comparator<T>.Compare(currentElementOfRightPart.Data, currentElementOfLeftPart.Data) == 0)
+                    if (currentElementOfRightPart.Data.CompareTo(currentElementOfLeftPart.Data) == -1)
                     {
                         merged.Add(currentElementOfRightPart.Data);
                         currentElementOfRightPart = currentElementOfRightPart.Next;
@@ -60,21 +63,5 @@ namespace MergeSortingOfLinkedList
             return merged;
         }
 
-    }
-    class Comparator<T> : IComparer<Element<T>>
-    {
-        public int Compare(Element<T> object1, Element<T> object2)
-        {
-            Element<T> currentElementOfLeftPart = object2.Data;
-            Element<T> currentElementOfRightPart = object1.Data;
-            if (currentElementOfRightPart < currentElementOfLeftPart)
-            {
-                return 0;
-            }
-            else
-            {
-                return 1;
-            }
-        }
     }
 }
