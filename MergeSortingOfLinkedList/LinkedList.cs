@@ -39,33 +39,33 @@ namespace MergeSortingOfLinkedList
             return length;
         }
 
-        public LinkedList<T> Take(int middleOfTheList)
+        public LinkedList<T> Take(int lengthOfList)
         {
             LinkedList<T> takeList = new LinkedList<T>();
             Element<T> current = _firstElement;
             int count = 0;
-            while (count <= middleOfTheList)
+            while (count < lengthOfList)
             {
                 count += 1;
+                takeList.Add(current.Data);
                 current = current.Next;
             }
-
+            takeList._lastElement.Next = current;
             return takeList;
         }
 
-        public LinkedList<T> Skip(int lengthOfList)
+        public LinkedList<T> Skip(Element<T> element, int lengthOfList, int count)
         {
-            LinkedList<T> skipList = new LinkedList<T>();
-            Element<T> current = _firstElement;
-            int count = lengthOfList/2;
-            while (count <= lengthOfList)
+            LinkedList<T> resultList = new LinkedList<T>();
+            while (count < lengthOfList)
             {
                 count += 1;
-                current = current.Next;
+                resultList.Add(element.Data);
+                element = element.Next;
             }
-
-            return skipList;
+            return resultList;
         }
+
 
         public void Print()
         {
