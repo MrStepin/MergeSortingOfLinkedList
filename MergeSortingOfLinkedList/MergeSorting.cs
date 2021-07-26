@@ -21,9 +21,9 @@ namespace MergeSortingOfLinkedList
             }
             int middle = lengthOfList / 2;
             var leftPart =  list.Take(middle);
-            Element<T> firstElementOfRightPart = leftPart.current;
-            LinkedList<T> rightPart = list.Skip(leftPart.current, lengthOfList, lengthOfList - middle);
-            return Merge(Sort(leftPart.takeList), Sort(rightPart));
+            Element<T> firstElementOfRightPart = leftPart.Item2;
+            LinkedList<T> rightPart = list.Skip(leftPart.Item2, lengthOfList, lengthOfList - middle);
+            return Merge(Sort(leftPart.Item1), Sort(rightPart));
         }
 
         public LinkedList<T> Merge(LinkedList<T> leftPart, LinkedList<T> rightPart)
