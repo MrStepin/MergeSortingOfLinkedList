@@ -39,7 +39,7 @@ namespace MergeSortingOfLinkedList
             return length;
         }
 
-        public LinkedList<T> Take(int lengthOfList)
+        public (LinkedList<T>, Element<T>) Take(int lengthOfList)
         {
             LinkedList<T> takeList = new LinkedList<T>();
             Element<T> current = _firstElement;
@@ -50,8 +50,7 @@ namespace MergeSortingOfLinkedList
                 takeList.Add(current.Data);
                 current = current.Next;
             }
-            takeList._lastElement.Next = current;
-            return takeList;
+            return (takeList, current);
         }
 
         public LinkedList<T> Skip(Element<T> element, int lengthOfList, int count)

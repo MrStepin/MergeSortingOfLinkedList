@@ -20,11 +20,10 @@ namespace MergeSortingOfLinkedList
                 return list;
             }
             int middle = lengthOfList / 2;
-            LinkedList<T> leftPart = list.Take(middle);
-            LinkedList<T> rightPart = list.Skip(leftPart._lastElement.Next, lengthOfList, lengthOfList - middle);
-            LinkedList<T> sortedLeftPart = Sort(leftPart);
-            LinkedList<T> sortedRightPart = Sort(rightPart);
-            return Merge(sortedLeftPart, sortedRightPart);
+            var leftPart =  list.Take(middle);
+            Element<T> firstElementOfRightPart = leftPart.current;
+            LinkedList<T> rightPart = list.Skip(leftPart.current, lengthOfList, lengthOfList - middle);
+            return Merge(Sort(leftPart.takeList), Sort(rightPart));
         }
 
         public LinkedList<T> Merge(LinkedList<T> leftPart, LinkedList<T> rightPart)
